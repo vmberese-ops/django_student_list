@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="top" class="d-flex align-items-center">
+    <div class="container-fluid" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div style="text-align: center;">
+          <img src="https://i.imgur.com/iD4HsyK.png" width="230"><br><br>
+          <h1>Ateneo Circle of <br>Computer Studies Students</h1>
+          <h2>The only academic club of the Computer Studies cluster at Ateneo de Davao University.</h2>
+          <div>
+            <a href={% url 'about' %} id="butn" class="btn-get-started scrollto">View About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href={% url 'listings' %} id="butn" class="btn-get-started scrollto" >Get Registered</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

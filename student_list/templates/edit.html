@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mx-auto border border-white" style="width: 800px; margin-top: 100px; background: linear-gradient(-45deg, #2a0f3b 0%, #462857 80%); color: white;">
+        <form style="margin: 20px;" method="POST">{% csrf_token %}
+            <h5 class="modal-title" id="exampleModalLabel">Edit Student Info</h5><br>
+
+            <!-- -- First Name -- -->
+            <div class="form-group">
+              <label>First Name:</label>
+              <input type="text" class="form-control" name="firstname" value="{{ list_item.firstname }}">
+            </div>
+
+            <!-- -- Last Name -- -->
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" class="form-control" name="lastname" value="{{ list_item.lastname }}">
+            </div>
+
+            <!-- -- Year Level -- -->
+            <label>Year Level:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="yearlevel" id="1" value="1st Year">
+                <label class="form-check-label" for="inlineRadio1">1st Yr.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="yearlevel" id="2" value="2nd Year">
+                <label class="form-check-label" for="inlineRadio2">2nd Yr.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="yearlevel" id="3" value="3rd Year">
+                <label class="form-check-label" for="inlineRadio2">3rd Yr.</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="yearlevel" id="4" value="4th Year">
+                <label class="form-check-label" for="inlineRadio2">4th Yr.</label>
+            </div>
+
+            <!-- -- Course -- -->
+            <!-- <br><br><label>Course:</label><br> -->
+            <br><br><label for="exampleFormControlSelect1">Course:</label>
+            <select class="form-control" id="course" name="course">
+                <option>BS Computer Science</option>
+                <option>BS Information Technology</option>
+                <option>BS Information System</option>
+            </select>
+            <!-- <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="cs" value="BS-CS">
+                <label class="form-check-label" for="inlineRadio1">BS Computer Science</label>
+            </div><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="it" value="BS-IT">
+                <label class="form-check-label" for="inlineRadio2">BS Information Technology</label>
+            </div><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="is" value="BS-IS">
+                <label class="form-check-label" for="inlineRadio2">BS Information System</label>
+            </div><br> -->
+
+
+            <!-- -- Gender -- -->
+            <br><label>Gender:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="m" value="Male">
+                <label class="form-check-label" for="inlineRadio1">Male</label>
+            </div><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="f" value="Female">
+                <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div><br><br>
+          
+            <div class="modal-footer">
+                <a type="button" href="{% url 'listings' %}" class="btn btn-secondary">cancel
+                </a>
+                <button class="btn btn-primary" type="submit">Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+<script type="text/javascript">
+    document.getElementById("home").setAttribute("class", "deactive");
+    document.getElementById("tit").innerHTML = "ACCSS | Edit Registration";
+
+    if("{{ list_item.yearlevel }}" == "1st Year")
+        document.getElementById("1").checked = true;
+    else if("{{ list_item.yearlevel }}" == "2nd Year")
+        document.getElementById("2").checked = true;
+    else if("{{ list_item.yearlevel }}" == "3rd Year")
+        document.getElementById("3").checked = true;
+    else
+        document.getElementById("4").checked = true;
+
+    document.getElementById("course").value = "{{ list_item.course }}";
+
+    if("{{ list_item.gender }}" == "Male")
+        document.getElementById("m").checked = true;
+    else
+        document.getElementById("f").checked = true;
+</script>
+{% endblock %}
+

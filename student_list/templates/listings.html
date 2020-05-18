@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="about-ACCSS">
+        <div id="aboutdiv" class="container" style="top: 120px;">
+            <h1 style="color: white;">Students List</h1>
+            <br>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModa3">
+                Register Student
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabe3" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border border-white" style="background: linear-gradient(180deg, #160415 0%, #1d051b 100%);">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabe3">Student Registeration</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                        <span aria-hidden="true" style="color: white;">&times;</span>
+                    </button>
+                    </div>
+                    <form method="POST">{% csrf_token %}
+                    <div class="modal-body" style="color: white;">
+                        
+                            <!-- -- First Name -- -->
+                            <div class="form-group">
+                              <label>First Name:</label>
+                              <input type="text" class="form-control" name="firstname">
+                            </div>
+
+                            <!-- -- Last Name -- -->
+                            <div class="form-group">
+                                <label>Last Name:</label>
+                                <input type="text" class="form-control" name="lastname">
+                            </div>
+
+                            <!-- -- Year Level -- -->
+                            <label>Year Level:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="yearlevel" id="1" value="1st Year">
+                                <label class="form-check-label" for="yearlevel">1st Yr.</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="yearlevel" id="2" value="2nd Year">
+                                <label class="form-check-label" for="yearlevel">2nd Yr.</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="yearlevel" id="3" value="3rd Year">
+                                <label class="form-check-label" for="yearlevel">3rd Yr.</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="yearlevel" id="4" value="4th Year">
+                                <label class="form-check-label" for="yearlevel">4th Yr.</label>
+                            </div>
+
+                            <!-- -- Course -- -->
+                            <!-- <br><br><label>Course:</label><br> -->
+                            <br><br><label for="exampleFormControlSelect1">Course:</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="course">
+                                <option>BS Computer Science</option>
+                                <option>BS Information Technology</option>
+                                <option>BS Information System</option>
+                            </select>
+
+                            <!-- -- Gender -- -->
+                            <br><label>Gender:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="Male">
+                                <label class="form-check-label" for="inlineRadio1">Male</label>
+                            </div><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="Female">
+                                <label class="form-check-label" for="inlineRadio2">Female</label>
+                            </div>
+                          
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" >Submit</button>
+                    </div>
+                </form>
+                </div>
+                </div>
+            </div>
+            <br><br>
+            {% if all_items %}
+            <table class="table">
+                <thead class="thead" style="color: #fff; background-color: rgb(116, 62, 133);">
+                  <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Year Level</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody style="color: white;">
+                {% for things in all_items %}
+                <tr>
+                    <td>{{ things.firstname }}</td>
+                    <td>{{ things.lastname }}</td>
+                    <td>{{ things.yearlevel }}</td>
+                    <td>{{ things.course }}</td>
+                    <td>{{ things.gender }}</td>
+                    <td>{{ things.date }}</td>
+                    <td>
+                        <div  data-toggle="buttons">
+                            <a href="{% url 'edit' things.id %}" class="btn btn-sm btn-success" tabindex="-1" role="button" aria-disabled="true">Edit</a>
+                            <a type="button" class="btn btn-sm btn-danger" tabindex="-1" role="button" aria-disabled="true" data-toggle="modal" data-target="#del">Delete</a>
+                        </div>
+                        <!-- Delete Modal -->
+                        <div class="modal" id="del" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content  border border-white" style="background-color: #290d27;">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Are you sure you want to Delete this student?</h5> 
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" style="text-align: center;">
+                                   <br> <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a type="button" class="btn btn-danger" href="{% url 'delete' things.id %}">Delete</a> 
+                                </div><br>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- End Delete Modal -->
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </section>
+
+    
+
+    <script>
+        var elem = document.getElementById("header");
+    
+        document.getElementById("home").setAttribute("class", "deactive");
+        document.getElementById("listings").setAttribute("class", "active");
+        document.getElementById("tit").innerHTML = "ACCSS | Students List";
+    
+        elem.style.background = "linear-gradient(45deg, #b030b0 0%, #602080 60%)";
+    </script>
+{% endblock %}
